@@ -32,7 +32,7 @@ def animatespritestepsleft():
 
 def draw():
     screen.clear()
-    screen.fill((80, 0, 80))
+    screen.fill((128, 80, 128))
     alien.draw()
 
 def update():
