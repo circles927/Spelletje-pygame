@@ -13,3 +13,14 @@ en
 deactivate
 
 ---------------------------
+
+Runnen middels VS Code werkt nog niet.
+
+Runnen vanuit Terminal werkt wel.
+
+"python mainGame.py"
+
+Zonder quotes.
+
+
+

@@ -1,26 +1,50 @@
-import pygame
+import pgzrun
+# import pygame
+import time
 
-pygame.init()
-screen = pygame.display.set_mode((1280, 720))
-clock = pygame.time.Clock()
-running = True
+alien = Actor('sprite2renewedright1')
+alien.topright = 0, 10
 
-while running:
-    # poll for events
-    # pygame.QUIT event means the user clicked X to close your window
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
+WIDTH = 500
+HEIGHT = alien.height + 20
 
-    # fill the screen with a color to wipe away anything from last frame
-    screen.fill("purple")
+def animatespritestepsright():
+    if alien.image == 'sprite2renewedright1':
+        time.sleep(0.1)
+        alien.image = 'sprite2renewedright2'
+    elif alien.image == 'sprite2renewedright2':
+        time.sleep(0.1)
+        alien.image = 'sprite2renewedright1'  
+    else:
+        time.sleep(0.1)
+        alien.image = 'sprite2renewedright1'  
 
-    # RENDER YOUR GAME HERE
+def animatespritestepsleft():
+    if alien.image == 'sprite2renewedleft1':
+        time.sleep(0.1)
+        alien.image = 'sprite2renewedleft2'
+    elif alien.image == 'sprite2renewedleft2':
+        time.sleep(0.1)
+        alien.image = 'sprite2renewedleft1'
+    else:
+        time.sleep(0.1)
+        alien.image = 'sprite2renewedleft1'    
 
-    # flip() the display to put your work on screen
-    pygame.display.flip()
+def draw():
+    screen.clear()
+    screen.fill((80, 0, 80))
+    alien.draw()
 
-    clock.tick(60)  # limits FPS to 60
+def update():
+    if keyboard.RIGHT:
+        alien.left += 3
+        animatespritestepsright()
+        if alien.left > WIDTH:
+            alien.right = 0
+    if keyboard.LEFT:
+        alien.left -= 3
+        animatespritestepsleft()
+        if alien.right < 0:
+            alien.left = WIDTH
 
-pygame.quit()
-
+pgzrun.go()
