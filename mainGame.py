@@ -22,13 +22,19 @@ def main():
     pygame.mixer.init()
 
     
-    screen = pygame.display.set_mode((600, 600))
+    screen = pygame.display.set_mode((800, 600))
     pygame.display.set_caption("Spritesheet with JSON (SUCCES)")
     clock = pygame.time.Clock()
+    
+    backgroundImage = pygame.image.load("images/background_first_try.png")
+    backgroundAddition = pygame.image.load("images/background_addition.png")
+    shrubberyImage = pygame.image.load("images/shrubbery.png")
+    stoneImage = pygame.image.load("images/stone.png")
+
     music8bit = pygame.mixer.Sound("sound/arcade_heroes.ogg")
     laserSound = pygame.mixer.Sound("sound/laser_soundeffect.mp3")
 
-    music8bit.play()
+    music8bit.play(loops=-1)
 
     SPRITESHEET_PATH = "images/sprite 2.png"
     JSON_PATH = "images/sprite 2.json"
@@ -56,8 +62,10 @@ def main():
     fired = "none"
     laserDirection = "none"
 
+    backgroundAnchorX = 0
+
     posX = 150
-    posY = 250
+    posY = 450
 
     laserX = 0
     laserY = 0
@@ -77,17 +85,76 @@ def main():
         mouseButtons = pygame.mouse.get_pressed()
 
         # Draw already starts here:
-        screen.fill((30, 30, 30))
+        screen.blit(backgroundImage, (backgroundAnchorX, 0))
+        screen.blit(backgroundAddition, (backgroundAnchorX + 704, 0))
+        
 
         # Update animation on pressing button, and blitting left or right
+        # Deze afwisseling naar rechts ken ik goed, niet per sé comments nodig.
         if keys[pygame.K_d]:
-            posX += 4
-            frame_index = (frame_index + 1) % len(framesRight)
-            direction = "right"
+            if posX < 450:
+                posX += 4
+                frame_index = (frame_index + 1) % len(framesRight)
+                direction = "right"
+            elif posX >= 450 and backgroundAnchorX > -704:
+                backgroundAnchorX -= 4
+                frame_index = (frame_index + 1) % len(framesRight)
+                direction = "right"
+            elif backgroundAnchorX <= -704 and posX < 685:
+                posX += 4
+                frame_index = (frame_index + 1) % len(framesRight)
+                direction = "right"
+            elif posX >= 685:
+                frame_index = (frame_index + 1) % len(framesRight)
+                direction = "right"
+
+        # Deze afwisseling naar links is moeizamer.
         if keys[pygame.K_a]:
-            posX -= 4
-            frame_index = (frame_index + 1) % len(framesLeft)
-            direction = "left"
+            # comments toevoegen aub, per stukje
+            if backgroundAnchorX >= 0 and posX >= 0:
+                posX -= 4
+                frame_index = (frame_index + 1) % len(framesLeft)
+                direction = "left"
+            elif backgroundAnchorX >= -704 and posX > 300:
+                posX -= 4
+                frame_index = (frame_index + 1) % len(framesLeft)
+                direction = "left"
+            elif backgroundAnchorX <= 0 and posX <= 300:
+                backgroundAnchorX += 4
+                frame_index = (frame_index + 1) % len(framesLeft)
+                direction = "left"
+            elif backgroundAnchorX >= 0 and posX >= 0:
+                posX -= 4
+                frame_index = (frame_index + 1) % len(framesLeft)
+                direction = "left"
+            elif backgroundAnchorX >= 0 and posX <= 0:
+                frame_index = (frame_index + 1) % len(framesLeft)
+                direction = "left"
+            
+
+            # if posX > 0 and backgroundAnchorX < 0:
+            #     backgroundAnchorX += 4
+            #     frame_index = (frame_index + 1) % len(framesLeft)
+            #     direction = "left"
+            # elif posX > 450 and backgroundAnchorX >= 0:
+            #     backgroundAnchorX -= 4
+            #     frame_index = (frame_index + 1) % len(framesLeft)
+            #     direction = "left"
+            # elif posX >= 450 and backgroundAnchorX >= 0:
+            #     posX -= 4                
+            #     frame_index = (frame_index + 1) % len(framesLeft)
+            #     direction = "left"
+            # elif posX > 0 and posX <= 450:
+            #     posX -= 4
+            #     frame_index = (frame_index + 1) % len(framesLeft)
+            #     direction = "left"
+
+        if keys[pygame.K_w]:
+            if posY >= 400:
+                posY -= 4
+        if keys[pygame.K_s]:
+            if posY <= 489:
+                posY += 4
 
         if keys[pygame.K_SPACE]:
             jump = "begin_1"
@@ -207,7 +274,10 @@ def main():
                 screen.blit(laserFramesRight[2], (laserX, laserY))
                 if laserX < -5:
                     fired = "none"  
-          
+        
+        screen.blit(shrubberyImage, (backgroundAnchorX + 335, 455))
+        screen.blit(stoneImage, (backgroundAnchorX + 650, 520))
+
         pygame.display.flip()
     
     pygame.quit()
