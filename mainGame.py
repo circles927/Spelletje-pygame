@@ -19,9 +19,16 @@ class SpriteSheet:
     
 def main():
     pygame.init()
+    pygame.mixer.init()
+
+    
     screen = pygame.display.set_mode((600, 600))
     pygame.display.set_caption("Spritesheet with JSON (SUCCES)")
     clock = pygame.time.Clock()
+    music8bit = pygame.mixer.Sound("sound/arcade_heroes.ogg")
+    laserSound = pygame.mixer.Sound("sound/laser_soundeffect.mp3")
+
+    music8bit.play()
 
     SPRITESHEET_PATH = "images/sprite 2.png"
     JSON_PATH = "images/sprite 2.json"
@@ -162,12 +169,15 @@ def main():
                 screen.blit(laserFramesRight[0], (laserX, laserY))
                 fired = "started"
                 laserDirection = "right"
+                laserSound.play(loops=0)
+                
             elif fired == "none" and direction == "left":
                 laserX = posX + 40
                 laserY = posY + 28
                 screen.blit(laserFramesLeft[0], (laserX, laserY))
                 fired = "started"
                 laserDirection = "left"
+                laserSound.play(loops=0)
 
         if fired != "none" and laserDirection == "right":
             if fired == "started":
