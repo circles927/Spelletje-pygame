@@ -19,7 +19,7 @@ class SpriteSheet:
     
 def main():
     pygame.init()
-    screen = pygame.display.set_mode((400, 300))
+    screen = pygame.display.set_mode((600, 600))
     pygame.display.set_caption("Spritesheet with JSON (SUCCES)")
     clock = pygame.time.Clock()
 
@@ -50,7 +50,7 @@ def main():
     laserDirection = "none"
 
     posX = 150
-    posY = 100
+    posY = 250
 
     laserX = 0
     laserY = 0
@@ -195,7 +195,7 @@ def main():
             elif fired == "full":
                 laserX -= 9
                 screen.blit(laserFramesRight[2], (laserX, laserY))
-                if laserX < 0:
+                if laserX < -5:
                     fired = "none"  
           
         pygame.display.flip()
