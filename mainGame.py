@@ -110,44 +110,21 @@ def main():
 
         # Deze afwisseling naar links is moeizamer.
         if keys[pygame.K_a]:
-            # comments toevoegen aub, per stukje
-            if backgroundAnchorX >= 0 and posX >= 0:
-                posX -= 4
-                frame_index = (frame_index + 1) % len(framesLeft)
-                direction = "left"
-            elif backgroundAnchorX >= -704 and posX > 300:
-                posX -= 4
-                frame_index = (frame_index + 1) % len(framesLeft)
-                direction = "left"
-            elif backgroundAnchorX <= 0 and posX <= 300:
+            # Vanaf het midden, achtergrond naar rechts, tenzij achtergrond het verst naar rechts staat.
+            if posX <= 275 and backgroundAnchorX <= -4:
                 backgroundAnchorX += 4
                 frame_index = (frame_index + 1) % len(framesLeft)
                 direction = "left"
-            elif backgroundAnchorX >= 0 and posX >= 0:
+            # Als achtergrond verst rechts is, dus de meest linker rand, dan moet de Sprite het laatste deel zelf lopen, vanaf het midden naar de meest linker rand 
+            elif (posX <= 275 and posX >= 0) and backgroundAnchorX > -4:
                 posX -= 4
                 frame_index = (frame_index + 1) % len(framesLeft)
                 direction = "left"
-            elif backgroundAnchorX >= 0 and posX <= 0:
+            # Als sprite voorbij het midden is (mag ie niet voorbij de 800, want dat betekent dat ie van het scherm loopt als de meest rechter rand in beeld is geschoven), moet ie eerst een stuk naar links lopen, voordat ie stopt en de achtergrond weer naar rechts gaat.
+            elif (posX > 275 and posX < 800):
+                posX -= 4
                 frame_index = (frame_index + 1) % len(framesLeft)
                 direction = "left"
-            
-
-            # if posX > 0 and backgroundAnchorX < 0:
-            #     backgroundAnchorX += 4
-            #     frame_index = (frame_index + 1) % len(framesLeft)
-            #     direction = "left"
-            # elif posX > 450 and backgroundAnchorX >= 0:
-            #     backgroundAnchorX -= 4
-            #     frame_index = (frame_index + 1) % len(framesLeft)
-            #     direction = "left"
-            # elif posX >= 450 and backgroundAnchorX >= 0:
-            #     posX -= 4                
-            #     frame_index = (frame_index + 1) % len(framesLeft)
-            #     direction = "left"
-            # elif posX > 0 and posX <= 450:
-            #     posX -= 4
-            #     frame_index = (frame_index + 1) % len(framesLeft)
-            #     direction = "left"
 
         if keys[pygame.K_w]:
             if posY >= 400:
