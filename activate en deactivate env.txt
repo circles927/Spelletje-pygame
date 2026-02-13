@@ -18,7 +18,10 @@ Runnen middels VS Code werkt nog niet.
 
 Runnen vanuit Terminal werkt wel.
 
-"python mainGame.py"
+Windows:
+"py mainGame.py"
+Linux Mint:
+python3 mainGame.py
 
 Zonder quotes.
 
