@@ -1,6 +1,8 @@
 ga naar de betreffende map
 (cd "Github Repo's")
 
+Voor Windows:
+
 eenmaal:
 python -m venv venv
 -
@@ -11,6 +13,14 @@ venv\Scripts\activate.ps1
 en
 
 deactivate
+
+Voor Linux Mint:
+
+eenmaal:
+python3 -m venv venv
+-
+dan:
+source venv/bin/activate
 
 ---------------------------
 
