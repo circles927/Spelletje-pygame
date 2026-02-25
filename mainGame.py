@@ -22,14 +22,15 @@ def main():
     pygame.mixer.init()
 
     
-    screen = pygame.display.set_mode((800, 600))
-    pygame.display.set_caption("Spritesheet with JSON (SUCCES)")
+    screen = pygame.display.set_mode((1024, 1024))
+    pygame.display.set_caption("Adjusted Game (diff graphics)")
     clock = pygame.time.Clock()
     
-    backgroundImage = pygame.image.load("images/background_first_try.png")
-    backgroundAddition = pygame.image.load("images/background_addition.png")
-    shrubberyImage = pygame.image.load("images/shrubbery.png")
-    stoneImage = pygame.image.load("images/stone.png")
+
+    backgroundImage = pygame.image.load("images/new graphics/background pixelbased(zoomedIn16).png")
+    # backgroundAddition = pygame.image.load("images/background_addition.png")
+    # shrubberyImage = pygame.image.load("images/shrubbery.png")
+    # stoneImage = pygame.image.load("images/stone.png")
 
     music8bit = pygame.mixer.Sound("sound/arcade_heroes.ogg")
     laserSound = pygame.mixer.Sound("sound/laser_soundeffect.mp3")
@@ -65,7 +66,7 @@ def main():
     backgroundAnchorX = 0
 
     posX = 150
-    posY = 450
+    posY = 768
 
     laserX = 0
     laserY = 0
@@ -84,53 +85,96 @@ def main():
         keys = pygame.key.get_pressed()
         mouseButtons = pygame.mouse.get_pressed()
 
-        # Draw already starts here:
+        # Maar 1 achtergrond op dit moment:
         screen.blit(backgroundImage, (backgroundAnchorX, 0))
-        screen.blit(backgroundAddition, (backgroundAnchorX + 704, 0))
+        # screen.blit(backgroundAddition, (backgroundAnchorX + 704, 0))
         
 
         # Update animation on pressing button, and blitting left or right
-        # Deze afwisseling naar rechts ken ik goed, niet per sé comments nodig.
+        # Bewegen naar rechts:         
+        
         if keys[pygame.K_d]:
-            if posX < 450:
-                posX += 4
+            if posX < 580:
+                posX += 8
                 frame_index = (frame_index + 1) % len(framesRight)
                 direction = "right"
-            elif posX >= 450 and backgroundAnchorX > -704:
-                backgroundAnchorX -= 4
+            elif posX >= 580 and backgroundAnchorX >= -3064:
+                backgroundAnchorX -= 8
                 frame_index = (frame_index + 1) % len(framesRight)
                 direction = "right"
-            elif backgroundAnchorX <= -704 and posX < 685:
-                posX += 4
+            elif posX <= 855 and backgroundAnchorX <= -3064:
+                posX += 8
                 frame_index = (frame_index + 1) % len(framesRight)
                 direction = "right"
-            elif posX >= 685:
+            elif posX >= 855:
                 frame_index = (frame_index + 1) % len(framesRight)
                 direction = "right"
+
+        if keys[pygame.K_a]:
+            if posX >= 444 and backgroundAnchorX <= -3064:
+                posX -= 8
+                frame_index = (frame_index + 1) % len(framesLeft)
+                direction = "left"
+            elif posX < 444 and backgroundAnchorX <= -3064:
+                backgroundAnchorX += 8
+                frame_index = (frame_index + 1) % len(framesLeft)
+                direction = "left"
+            elif posX > 10 and backgroundAnchorX >= 0:
+                posX -= 8
+                frame_index = (frame_index + 1) % len(framesLeft)
+                direction = "left"
+            elif posX <= 10:
+                frame_index = (frame_index + 1) % len(framesLeft)
+                direction = "left"
+            
+        # -----------------------------------------
+        # if keys[pygame.K_d]:
+        #     if posX < 450:
+        #         posX += 4
+        #         frame_index = (frame_index + 1) % len(framesRight)
+        #         direction = "right"
+        #     elif posX >= 450 and backgroundAnchorX > -704:
+        #         backgroundAnchorX -= 4
+        #         frame_index = (frame_index + 1) % len(framesRight)
+        #         direction = "right"
+        #     elif backgroundAnchorX <= -704 and posX < 685:
+        #         posX += 4
+        #         frame_index = (frame_index + 1) % len(framesRight)
+        #         direction = "right"
+        #     elif posX >= 685:
+        #         frame_index = (frame_index + 1) % len(framesRight)
+        #         direction = "right"
+        # -----------------------------------------
 
         # Deze afwisseling naar links is moeizamer.
-        if keys[pygame.K_a]:
-            # Vanaf het midden, achtergrond naar rechts, tenzij achtergrond het verst naar rechts staat.
-            if posX <= 275 and backgroundAnchorX <= -4:
-                backgroundAnchorX += 4
-                frame_index = (frame_index + 1) % len(framesLeft)
-                direction = "left"
-            # Als achtergrond verst rechts is, dus de meest linker rand, dan moet de Sprite het laatste deel zelf lopen, vanaf het midden naar de meest linker rand 
-            elif (posX <= 275 and posX >= 0) and backgroundAnchorX > -4:
-                posX -= 4
-                frame_index = (frame_index + 1) % len(framesLeft)
-                direction = "left"
-            # Als sprite voorbij het midden is (mag ie niet voorbij de 800, want dat betekent dat ie van het scherm loopt als de meest rechter rand in beeld is geschoven), moet ie eerst een stuk naar links lopen, voordat ie stopt en de achtergrond weer naar rechts gaat.
-            elif (posX > 275 and posX < 800):
-                posX -= 4
-                frame_index = (frame_index + 1) % len(framesLeft)
-                direction = "left"
+        # Bewegen naar links:
+
+
+
+        # -----------------------------------------
+        # if keys[pygame.K_a]:
+        #     # Vanaf het midden, achtergrond naar rechts, tenzij achtergrond het verst naar rechts staat.
+        #     if posX <= 275 and backgroundAnchorX <= -4:
+        #         backgroundAnchorX += 4
+        #         frame_index = (frame_index + 1) % len(framesLeft)
+        #         direction = "left"
+        #     # Als achtergrond verst rechts is, dus de meest linker rand, dan moet de Sprite het laatste deel zelf lopen, vanaf het midden naar de meest linker rand 
+        #     elif (posX <= 275 and posX >= 0) and backgroundAnchorX > -4:
+        #         posX -= 4
+        #         frame_index = (frame_index + 1) % len(framesLeft)
+        #         direction = "left"
+        #     # Als sprite voorbij het midden is (mag ie niet voorbij de 800, want dat betekent dat ie van het scherm loopt als de meest rechter rand in beeld is geschoven), moet ie eerst een stuk naar links lopen, voordat ie stopt en de achtergrond weer naar rechts gaat.
+        #     elif (posX > 275 and posX < 800):
+        #         posX -= 4
+        #         frame_index = (frame_index + 1) % len(framesLeft)
+        #         direction = "left"
+        # ------------------------------------------
 
         if keys[pygame.K_w]:
-            if posY >= 400:
+            if posY >= 550:
                 posY -= 4
         if keys[pygame.K_s]:
-            if posY <= 489:
+            if posY <= 895:
                 posY += 4
 
         if keys[pygame.K_SPACE]:
@@ -252,8 +296,9 @@ def main():
                 if laserX < -5:
                     fired = "none"  
         
-        screen.blit(shrubberyImage, (backgroundAnchorX + 335, 455))
-        screen.blit(stoneImage, (backgroundAnchorX + 650, 520))
+        # unnecessary for now
+        # screen.blit(shrubberyImage, (backgroundAnchorX + 335, 455))
+        # screen.blit(stoneImage, (backgroundAnchorX + 650, 520))
 
         pygame.display.flip()
     
