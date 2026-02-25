@@ -1,0 +1,28 @@
+Oké dus...
+
+Er zijn een aantal engines waar je uit kan kiezen. Maar de vraag is of er een geschikte tussen zit.
+
+Zo ken ik er een paar uit het hoofd:
+- Matter.js
+- Phaser
+- Unity
+- Godot 
+- GameMaker
+
+Maar ook een die ik nog nader moet onderzoeken:
+- Cairo (graphics)
+
+Maar dat is misschien te grafisch. En te weinig physics engine. Maar het was interessant. En zo heb je ook voor 3D een aantal namen die boven komen drijven.
+
+- Direct3D
+- Vulkan
+- OpenGL
+
+Maar ja. Dat is voor het zwaardere werk.
+
+Ook zijn:
+- Unity
+- Unreal
+
+Echt een paar van de succesvol gevestigde namen. Kan je niet echt omheen wat betreft game development.
+
