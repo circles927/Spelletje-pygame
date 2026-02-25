@@ -37,8 +37,8 @@ def main():
 
     music8bit.play(loops=-1)
 
-    SPRITESHEET_PATH = "images/sprite 2.png"
-    JSON_PATH = "images/sprite 2.json"
+    SPRITESHEET_PATH = "images/new graphics/sprite 2-new.png"
+    JSON_PATH = "images/new graphics/sprite 2-new.json"
 
     LASERSPRITESHEET = "images/laser.png"
     LASERSPRITEJSON = "images/laser.json"
@@ -66,7 +66,7 @@ def main():
     backgroundAnchorX = 0
 
     posX = 150
-    posY = 768
+    posY = 700
 
     laserX = 0
     laserY = 0
@@ -95,35 +95,35 @@ def main():
         
         if keys[pygame.K_d]:
             if posX < 580:
-                posX += 8
+                posX += 12
                 frame_index = (frame_index + 1) % len(framesRight)
                 direction = "right"
-            elif posX >= 580 and backgroundAnchorX >= -3064:
-                backgroundAnchorX -= 8
+            if posX >= 580 and backgroundAnchorX >= -3060:
+                backgroundAnchorX -= 12
                 frame_index = (frame_index + 1) % len(framesRight)
                 direction = "right"
-            elif posX <= 855 and backgroundAnchorX <= -3064:
-                posX += 8
+            elif posX <= 790 and backgroundAnchorX <= -3060:
+                posX += 12
                 frame_index = (frame_index + 1) % len(framesRight)
                 direction = "right"
-            elif posX >= 855:
+            elif posX >= 790:
                 frame_index = (frame_index + 1) % len(framesRight)
                 direction = "right"
 
         if keys[pygame.K_a]:
-            if posX >= 444 and backgroundAnchorX <= -3064:
-                posX -= 8
+            if posX >= 320 and backgroundAnchorX <= 0:
+                posX -= 12
                 frame_index = (frame_index + 1) % len(framesLeft)
                 direction = "left"
-            elif posX < 444 and backgroundAnchorX <= -3064:
-                backgroundAnchorX += 8
+            elif posX < 320 and backgroundAnchorX < 0:
+                backgroundAnchorX += 12
                 frame_index = (frame_index + 1) % len(framesLeft)
                 direction = "left"
-            elif posX > 10 and backgroundAnchorX >= 0:
-                posX -= 8
+            elif posX >= -24 and backgroundAnchorX >= 0:
+                posX -= 12
                 frame_index = (frame_index + 1) % len(framesLeft)
                 direction = "left"
-            elif posX <= 10:
+            elif posX < -24:
                 frame_index = (frame_index + 1) % len(framesLeft)
                 direction = "left"
             
@@ -138,7 +138,7 @@ def main():
         #         frame_index = (frame_index + 1) % len(framesRight)
         #         direction = "right"
         #     elif backgroundAnchorX <= -704 and posX < 685:
-        #         posX += 4
+        #         posX += 4source venv/bin/activate
         #         frame_index = (frame_index + 1) % len(framesRight)
         #         direction = "right"
         #     elif posX >= 685:
@@ -171,11 +171,11 @@ def main():
         # ------------------------------------------
 
         if keys[pygame.K_w]:
-            if posY >= 550:
-                posY -= 4
+            if posY >= 425:
+                posY -= 12
         if keys[pygame.K_s]:
-            if posY <= 895:
-                posY += 4
+            if posY <= 785:
+                posY += 12
 
         if keys[pygame.K_SPACE]:
             jump = "begin_1"
@@ -187,30 +187,30 @@ def main():
                 screen.blit(framesJumpRight[0], (posX, posY))
                 jump = "begin_2"
             elif jump == "begin_2":
-                posY -= 10
+                posY -= 20
                 screen.blit(framesJumpRight[1], (posX, posY))
                 jump = "begin_3"
             elif jump == "begin_3":
-                posY -= 20
+                posY -= 40
                 screen.blit(framesJumpRight[2], (posX, posY))
                 jump = "begin_4"
             elif jump == "begin_4":
-                posY -= 10
+                posY -= 20
                 screen.blit(framesJumpRight[2], (posX, posY))
                 jump = "begin_5"
             elif jump == "begin_5":
                 screen.blit(framesJumpRight[2], (posX, posY))
                 jump = "begin_6"
             elif jump == "begin_6":
-                posY += 10
+                posY += 20
                 screen.blit(framesJumpRight[2], (posX, posY))
                 jump = "begin_7"
             elif jump == "begin_7":
-                posY += 20
+                posY += 40
                 screen.blit(framesJumpRight[1], (posX, posY))
                 jump = "begin_8"
             elif jump == "begin_8":
-                posY += 10
+                posY += 20
                 screen.blit(framesJumpRight[0], (posX, posY))
                 jump = "none"
 
@@ -221,30 +221,30 @@ def main():
                 screen.blit(framesJumpLeft[0], (posX, posY))
                 jump = "begin_2"
             elif jump == "begin_2":
-                posY -= 10
+                posY -= 20
                 screen.blit(framesJumpLeft[1], (posX, posY))
                 jump = "begin_3"
             elif jump == "begin_3":
-                posY -= 20
+                posY -= 40
                 screen.blit(framesJumpLeft[2], (posX, posY))
                 jump = "begin_4"
             elif jump == "begin_4":
-                posY -= 10
+                posY -= 20
                 screen.blit(framesJumpLeft[2], (posX, posY))
                 jump = "begin_5"
             elif jump == "begin_5":
                 screen.blit(framesJumpLeft[2], (posX, posY))
                 jump = "begin_6"
             elif jump == "begin_6":
-                posY += 10
+                posY += 20
                 screen.blit(framesJumpLeft[2], (posX, posY))
                 jump = "begin_7"
             elif jump == "begin_7":
-                posY += 20
+                posY += 40
                 screen.blit(framesJumpLeft[1], (posX, posY))
                 jump = "begin_8"
             elif jump == "begin_8":
-                posY += 10
+                posY += 20
                 screen.blit(framesJumpLeft[0], (posX, posY))
                 jump = "none"
         else:
@@ -252,16 +252,16 @@ def main():
 
         if mouseButtons[0] == True:
             if fired == "none" and direction == "right":
-                laserX = posX + 50
-                laserY = posY + 28
+                laserX = posX + 145
+                laserY = posY + 70
                 screen.blit(laserFramesRight[0], (laserX, laserY))
                 fired = "started"
                 laserDirection = "right"
                 laserSound.play(loops=0)
                 
             elif fired == "none" and direction == "left":
-                laserX = posX + 40
-                laserY = posY + 28
+                laserX = posX + 70
+                laserY = posY + 70
                 screen.blit(laserFramesLeft[0], (laserX, laserY))
                 fired = "started"
                 laserDirection = "left"
@@ -269,29 +269,29 @@ def main():
 
         if fired != "none" and laserDirection == "right":
             if fired == "started":
-                laserX += 3
+                laserX += 6
                 screen.blit(laserFramesRight[1], (laserX, laserY))
                 fired = "halfway"
             elif fired == "halfway":
-                laserX += 9
+                laserX += 18
                 screen.blit(laserFramesRight[2], (laserX, laserY))
                 fired = "full"
             elif fired == "full":
-                laserX += 9
+                laserX += 18
                 screen.blit(laserFramesRight[2], (laserX, laserY))
                 if laserX > screen.get_width():
                     fired = "none"
         elif fired != "none" and laserDirection == "left":
             if fired == "started":
-                laserX -= 3
+                laserX -= 6
                 screen.blit(laserFramesRight[1], (laserX, laserY))
                 fired = "halfway"
             elif fired == "halfway":
-                laserX -= 9
+                laserX -= 18
                 screen.blit(laserFramesRight[2], (laserX, laserY))
                 fired = "full"
             elif fired == "full":
-                laserX -= 9
+                laserX -= 18
                 screen.blit(laserFramesRight[2], (laserX, laserY))
                 if laserX < -5:
                     fired = "none"  
