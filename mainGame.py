@@ -27,10 +27,12 @@ def main():
     clock = pygame.time.Clock()
     
 
-    backgroundImage = pygame.image.load("images/new graphics/background pixelbased(zoomedIn16).png")
+    backgroundImage = pygame.image.load("images/new graphics/plain-background-new(for_adding).png")
     # backgroundAddition = pygame.image.load("images/background_addition.png")
-    # shrubberyImage = pygame.image.load("images/shrubbery.png")
-    # stoneImage = pygame.image.load("images/stone.png")
+    treeNrOneImage = pygame.image.load("images/new graphics/tree-1-new.png")
+    treeNrTwoImage = pygame.image.load("images/new graphics/tree-2-new.png")
+    shrubberyImage = pygame.image.load("images/new graphics/shrubbery-new.png")
+    stoneImage = pygame.image.load("images/new graphics/stone-new.png")
 
     music8bit = pygame.mixer.Sound("sound/arcade_heroes.ogg")
     laserSound = pygame.mixer.Sound("sound/laser_soundeffect.mp3")
@@ -62,16 +64,27 @@ def main():
     jump = "none"
     fired = "none"
     laserDirection = "none"
+    slowmo = False
+    obstructed = False
 
     backgroundAnchorX = 0
 
     posX = 150
     posY = 700
 
+    posXbodyLR = [posX + 8, posX + 68] 
+    posYbodyTB = [posY + 40, posY + 68]
+    
     laserX = 0
     laserY = 0
 
     running = True
+
+    treeOneLoc = [330, 100]
+    shrubbLoc = [1060, 480]
+    stoneLoc = [1800, 700]
+    treeTwoLoc = [2700, 420]
+
     while running:
         dt = clock.tick(20)
 
@@ -94,35 +107,71 @@ def main():
         # Bewegen naar rechts:         
         
         if keys[pygame.K_d]:
-            if posX < 580:
-                posX += 12
+            if obstructed == True:
                 frame_index = (frame_index + 1) % len(framesRight)
                 direction = "right"
-            if posX >= 580 and backgroundAnchorX >= -3060:
-                backgroundAnchorX -= 12
-                frame_index = (frame_index + 1) % len(framesRight)
-                direction = "right"
+            elif posX < 580:
+                if slowmo == False:
+                    posX += 12
+                    frame_index = (frame_index + 1) % len(framesRight)
+                    direction = "right"
+                if slowmo == True:
+                    posX += 6
+                    frame_index = (frame_index + 1) % len(framesRight)
+                    direction = "right"
+            elif posX >= 580 and backgroundAnchorX >= -3060:
+                if slowmo == False:
+                    backgroundAnchorX -= 12
+                    frame_index = (frame_index + 1) % len(framesRight)
+                    direction = "right"
+                if slowmo == True:
+                    backgroundAnchorX -= 6
+                    frame_index = (frame_index + 1) % len(framesRight)
+                    direction = "right"
             elif posX <= 790 and backgroundAnchorX <= -3060:
-                posX += 12
-                frame_index = (frame_index + 1) % len(framesRight)
-                direction = "right"
+                if slowmo == False:
+                    posX += 12
+                    frame_index = (frame_index + 1) % len(framesRight)
+                    direction = "right"
+                if slowmo == True:
+                    posX += 6
+                    frame_index = (frame_index + 1) % len(framesRight)
+                    direction = "right"
             elif posX >= 790:
                 frame_index = (frame_index + 1) % len(framesRight)
                 direction = "right"
 
         if keys[pygame.K_a]:
-            if posX >= 320 and backgroundAnchorX <= 0:
-                posX -= 12
+            if obstructed == True:
                 frame_index = (frame_index + 1) % len(framesLeft)
                 direction = "left"
+            elif posX >= 320 and backgroundAnchorX <= 0:
+                if slowmo == False:
+                    posX -= 12
+                    frame_index = (frame_index + 1) % len(framesLeft)
+                    direction = "left"
+                if slowmo == True:
+                    posX -= 6
+                    frame_index = (frame_index + 1) % len(framesLeft)
+                    direction = "left"
             elif posX < 320 and backgroundAnchorX < 0:
-                backgroundAnchorX += 12
-                frame_index = (frame_index + 1) % len(framesLeft)
-                direction = "left"
+                if slowmo == False:
+                    backgroundAnchorX += 12
+                    frame_index = (frame_index + 1) % len(framesLeft)
+                    direction = "left"
+                if slowmo == True:
+                    backgroundAnchorX += 6
+                    frame_index = (frame_index + 1) % len(framesLeft)
+                    direction = "left"
             elif posX >= -24 and backgroundAnchorX >= 0:
-                posX -= 12
-                frame_index = (frame_index + 1) % len(framesLeft)
-                direction = "left"
+                if slowmo == False:
+                    posX -= 12
+                    frame_index = (frame_index + 1) % len(framesLeft)
+                    direction = "left"
+                if slowmo == True:
+                    posX -= 6
+                    frame_index = (frame_index + 1) % len(framesLeft)
+                    direction = "left"
             elif posX < -24:
                 frame_index = (frame_index + 1) % len(framesLeft)
                 direction = "left"
@@ -297,8 +346,10 @@ def main():
                     fired = "none"  
         
         # unnecessary for now
-        # screen.blit(shrubberyImage, (backgroundAnchorX + 335, 455))
-        # screen.blit(stoneImage, (backgroundAnchorX + 650, 520))
+        screen.blit(treeNrOneImage, (backgroundAnchorX + 330, 100))
+        screen.blit(shrubberyImage, (backgroundAnchorX + 1060, 480))
+        screen.blit(stoneImage, (backgroundAnchorX + 1800, 700))
+        screen.blit(treeNrTwoImage, (backgroundAnchorX + 2700, 420))
 
         pygame.display.flip()
     
