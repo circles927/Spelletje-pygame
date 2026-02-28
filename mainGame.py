@@ -71,9 +71,6 @@ def main():
 
     posX = 150
     posY = 700
-
-    posXbodyLR = [posX + 8, posX + 68] 
-    posYbodyTB = [posY + 40, posY + 68]
     
     laserX = 0
     laserY = 0
