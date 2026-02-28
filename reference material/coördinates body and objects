@@ -1,27 +1,15 @@
-alien (128 x 128) (40 rand boven, 20 rand beneden, 60 rand totaal, 68 pixels sprite grootte hoog)
+alien (256 x 256)
 
-alien lichaam:
-128 - 40 = 88
-88 - 20 = 
-68 hoog pixels totaal
+Transparant grootte:
+x = 64
+y = 72
 
-alien hoogte, oog:
-128 - 40 = 88 pixels hoog vanaf bodem
-alien hoogte, schouder:
-128 - 80 = 48 pixels hoog vanaf bodem
-alien voeten (hoogte):
-128 - 108 (rand onder) = 20 pixels vanaf bodem
-
-alien breedte, lichaam (exact):
-76 pixels
-alien breedte, hitbox:
-40 tot 100
-(60 breed)
-
-dus vanaf bovenaf-links, de hitbox:
-x = 8 tot x = 68 (60 breed)
-y = 40 tot y = 68 (28 hoog)
-
+Body Alien:
+x = 80 (-64 = 16)
+y = 168 (-72 = 96)
+tot
+x = 199 (-80 = 119)
+y = 215 (-168 = 47)
 -------------------------------------------------
 
 hoogte boom 1
@@ -58,8 +46,8 @@ hoogte stone
 breedte stone
 144 pixels
 
-x = 16 tot x = 144 (128 breed)
-y = 9 tot y = 96 (87 hoog)
+x = 46 tot x = 174 (128 breed)
+y = 36 tot y = 123 (87 hoog)
 
 -
 

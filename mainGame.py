@@ -17,6 +17,7 @@ class SpriteSheet:
         
         return image
     
+
 def main():
     pygame.init()
     pygame.mixer.init()
@@ -61,6 +62,7 @@ def main():
     frame_index = 0
 
     direction = "right"
+    elevation = "none"
     jump = "none"
     fired = "none"
     laserDirection = "none"
@@ -71,7 +73,7 @@ def main():
 
     posX = 150
     posY = 700
-    
+
     laserX = 0
     laserY = 0
 
@@ -81,6 +83,8 @@ def main():
     shrubbLoc = [1060, 480]
     stoneLoc = [1800, 700]
     treeTwoLoc = [2700, 420]
+
+    # Testing collision on stone sprite:
 
     while running:
         dt = clock.tick(20)
@@ -92,87 +96,51 @@ def main():
             if event.type == pygame.MOUSEBUTTONUP:
                 button = event.button
 
+        originalCoordinates = (posX, posY)
+
         keys = pygame.key.get_pressed()
         mouseButtons = pygame.mouse.get_pressed()
 
         # Maar 1 achtergrond op dit moment:
         screen.blit(backgroundImage, (backgroundAnchorX, 0))
         # screen.blit(backgroundAddition, (backgroundAnchorX + 704, 0))
-        
 
         # Update animation on pressing button, and blitting left or right
         # Bewegen naar rechts:         
-        
         if keys[pygame.K_d]:
-            if obstructed == True:
+            if posX < 580:
+                posX += 12
                 frame_index = (frame_index + 1) % len(framesRight)
                 direction = "right"
-            elif posX < 580:
-                if slowmo == False:
-                    posX += 12
-                    frame_index = (frame_index + 1) % len(framesRight)
-                    direction = "right"
-                if slowmo == True:
-                    posX += 6
-                    frame_index = (frame_index + 1) % len(framesRight)
-                    direction = "right"
             elif posX >= 580 and backgroundAnchorX >= -3060:
-                if slowmo == False:
-                    backgroundAnchorX -= 12
-                    frame_index = (frame_index + 1) % len(framesRight)
-                    direction = "right"
-                if slowmo == True:
-                    backgroundAnchorX -= 6
-                    frame_index = (frame_index + 1) % len(framesRight)
-                    direction = "right"
+                backgroundAnchorX -= 12
+                frame_index = (frame_index + 1) % len(framesRight)
+                direction = "right"
             elif posX <= 790 and backgroundAnchorX <= -3060:
-                if slowmo == False:
-                    posX += 12
-                    frame_index = (frame_index + 1) % len(framesRight)
-                    direction = "right"
-                if slowmo == True:
-                    posX += 6
-                    frame_index = (frame_index + 1) % len(framesRight)
-                    direction = "right"
+                posX += 12
+                frame_index = (frame_index + 1) % len(framesRight)
+                direction = "right"
             elif posX >= 790:
                 frame_index = (frame_index + 1) % len(framesRight)
                 direction = "right"
 
         if keys[pygame.K_a]:
-            if obstructed == True:
+            if posX >= 320 and backgroundAnchorX <= 0:    
+                posX -= 12
                 frame_index = (frame_index + 1) % len(framesLeft)
                 direction = "left"
-            elif posX >= 320 and backgroundAnchorX <= 0:
-                if slowmo == False:
-                    posX -= 12
-                    frame_index = (frame_index + 1) % len(framesLeft)
-                    direction = "left"
-                if slowmo == True:
-                    posX -= 6
-                    frame_index = (frame_index + 1) % len(framesLeft)
-                    direction = "left"
             elif posX < 320 and backgroundAnchorX < 0:
-                if slowmo == False:
-                    backgroundAnchorX += 12
-                    frame_index = (frame_index + 1) % len(framesLeft)
-                    direction = "left"
-                if slowmo == True:
-                    backgroundAnchorX += 6
-                    frame_index = (frame_index + 1) % len(framesLeft)
-                    direction = "left"
+                backgroundAnchorX += 12
+                frame_index = (frame_index + 1) % len(framesLeft)
+                direction = "left"
             elif posX >= -24 and backgroundAnchorX >= 0:
-                if slowmo == False:
-                    posX -= 12
-                    frame_index = (frame_index + 1) % len(framesLeft)
-                    direction = "left"
-                if slowmo == True:
-                    posX -= 6
-                    frame_index = (frame_index + 1) % len(framesLeft)
-                    direction = "left"
+                posX -= 12
+                frame_index = (frame_index + 1) % len(framesLeft)
+                direction = "left"
             elif posX < -24:
                 frame_index = (frame_index + 1) % len(framesLeft)
                 direction = "left"
-            
+                
         # -----------------------------------------
         # if keys[pygame.K_d]:
         #     if posX < 450:
@@ -219,9 +187,11 @@ def main():
         if keys[pygame.K_w]:
             if posY >= 425:
                 posY -= 12
+                elevation = "up"
         if keys[pygame.K_s]:
             if posY <= 785:
                 posY += 12
+                elevation = "down"
 
         if keys[pygame.K_SPACE]:
             jump = "begin_1"
@@ -232,6 +202,8 @@ def main():
             elif jump == "begin_1":
                 screen.blit(framesJumpRight[0], (posX, posY))
                 jump = "begin_2"
+            if fired == "none" and direction == "right":
+                laserX = posX + 145
             elif jump == "begin_2":
                 posY -= 20
                 screen.blit(framesJumpRight[1], (posX, posY))
@@ -341,12 +313,31 @@ def main():
                 screen.blit(laserFramesRight[2], (laserX, laserY))
                 if laserX < -5:
                     fired = "none"  
-        
+
         # unnecessary for now
         screen.blit(treeNrOneImage, (backgroundAnchorX + 330, 100))
         screen.blit(shrubberyImage, (backgroundAnchorX + 1060, 480))
         screen.blit(stoneImage, (backgroundAnchorX + 1800, 700))
         screen.blit(treeNrTwoImage, (backgroundAnchorX + 2700, 420))
+
+        # alienRect = pygame.Rect(posX + 40, posY + 80, 60, 28)
+        # stoneRect = pygame.Rect(stoneLoc[0] + backgroundAnchorX + 46, stoneLoc[1] + 36, 128, 87)
+
+        alienRect = pygame.Rect(posX + 80, posY + 168, 119, 47)
+        stoneRect = pygame.Rect(stoneLoc[0] + backgroundAnchorX + 46, stoneLoc[1] + 36, 128, 87)
+
+        if alienRect.colliderect(stoneRect):
+            obstructed = True
+        elif not alienRect.colliderect(stoneRect):
+            obstructed = False
+        else:
+            print("something went wrong with collision detection")
+
+        if obstructed == True:
+            posX = originalCoordinates[0]
+            posY = originalCoordinates[1]
+        elif obstructed == False:
+            pass
 
         pygame.display.flip()
     
