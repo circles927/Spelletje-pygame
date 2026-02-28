@@ -1,0 +1,74 @@
+alien (128 x 128) (40 rand boven, 20 rand beneden, 60 rand totaal, 68 pixels sprite grootte hoog)
+
+alien lichaam:
+128 - 40 = 88
+88 - 20 = 
+68 hoog pixels totaal
+
+alien hoogte, oog:
+128 - 40 = 88 pixels hoog vanaf bodem
+alien hoogte, schouder:
+128 - 80 = 48 pixels hoog vanaf bodem
+alien voeten (hoogte):
+128 - 108 (rand onder) = 20 pixels vanaf bodem
+
+alien breedte, lichaam (exact):
+76 pixels
+alien breedte, hitbox:
+40 tot 100
+(60 breed)
+
+dus vanaf bovenaf-links, de hitbox:
+x = 8 tot x = 68 (60 breed)
+y = 40 tot y = 68 (28 hoog)
+
+-------------------------------------------------
+
+hoogte boom 1
+512 pixels
+
+stam boom 1 breedte
+129 (begin stam exact)
+416 (eind stam exact)
+416 - 129 = 287 pixels
+160 - 81 = 79 (schatting begin)
+384 - 81 = 303 (schatting eind)
+
+stam boom 1 hoogte
+533 - 85 = 448 (begin)
+596 - 85 = 511 (eind)
+
+x = 79 tot x = 303 (224 breed)
+y = 448 tot y = 511 (63 hoog)
+
+-
+
+hoogte shrubbery
+208 pixels
+breedte shrubbery
+448 pixels
+
+x = 32 tot x = 431 (399 breed)
+y = 129 tot y = 207 (78 hoog)
+
+-
+
+hoogte stone
+96 pixels
+breedte stone
+144 pixels
+
+x = 16 tot x = 144 (128 breed)
+y = 9 tot y = 96 (87 hoog)
+
+-
+
+hoogte boom 2
+535 - 40 = 495
+
+breedte boom stam
+100 tot 355
+255 breed (stam)
+
+x = 96 tot x = 219 (123 breed)
+y = 432 tot y = 480 (48 hoog)
