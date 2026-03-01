@@ -62,12 +62,12 @@ def main():
     frame_index = 0
 
     direction = "right"
-    elevation = "none"
     jump = "none"
     fired = "none"
     laserDirection = "none"
-    slowmo = False
-    obstructed = False
+    # Try to implement directly instead of with seperate variables:
+    # slowmo = False
+    # obstructed = False
 
     backgroundAnchorX = 0
 
@@ -96,16 +96,19 @@ def main():
             if event.type == pygame.MOUSEBUTTONUP:
                 button = event.button
 
+        # Idea to put this at the end, and store it outside of this while loop (up above more):
         originalCoordinates = (posX, posY)
+        lastBackgrOffset = backgroundAnchorX
 
         keys = pygame.key.get_pressed()
         mouseButtons = pygame.mouse.get_pressed()
 
         # Maar 1 achtergrond op dit moment:
-        screen.blit(backgroundImage, (backgroundAnchorX, 0))
         # screen.blit(backgroundAddition, (backgroundAnchorX + 704, 0))
 
-        # Update animation on pressing button, and blitting left or right
+        # ----------------------------------------------------------
+
+        # Updating new coördinates:
         # Bewegen naar rechts:         
         if keys[pygame.K_d]:
             if posX < 580:
@@ -140,66 +143,38 @@ def main():
             elif posX < -24:
                 frame_index = (frame_index + 1) % len(framesLeft)
                 direction = "left"
-                
-        # -----------------------------------------
-        # if keys[pygame.K_d]:
-        #     if posX < 450:
-        #         posX += 4
-        #         frame_index = (frame_index + 1) % len(framesRight)
-        #         direction = "right"
-        #     elif posX >= 450 and backgroundAnchorX > -704:
-        #         backgroundAnchorX -= 4
-        #         frame_index = (frame_index + 1) % len(framesRight)
-        #         direction = "right"
-        #     elif backgroundAnchorX <= -704 and posX < 685:
-        #         posX += 4source venv/bin/activate
-        #         frame_index = (frame_index + 1) % len(framesRight)
-        #         direction = "right"
-        #     elif posX >= 685:
-        #         frame_index = (frame_index + 1) % len(framesRight)
-        #         direction = "right"
-        # -----------------------------------------
-
-        # Deze afwisseling naar links is moeizamer.
-        # Bewegen naar links:
-
-
-
-        # -----------------------------------------
-        # if keys[pygame.K_a]:
-        #     # Vanaf het midden, achtergrond naar rechts, tenzij achtergrond het verst naar rechts staat.
-        #     if posX <= 275 and backgroundAnchorX <= -4:
-        #         backgroundAnchorX += 4
-        #         frame_index = (frame_index + 1) % len(framesLeft)
-        #         direction = "left"
-        #     # Als achtergrond verst rechts is, dus de meest linker rand, dan moet de Sprite het laatste deel zelf lopen, vanaf het midden naar de meest linker rand 
-        #     elif (posX <= 275 and posX >= 0) and backgroundAnchorX > -4:
-        #         posX -= 4
-        #         frame_index = (frame_index + 1) % len(framesLeft)
-        #         direction = "left"
-        #     # Als sprite voorbij het midden is (mag ie niet voorbij de 800, want dat betekent dat ie van het scherm loopt als de meest rechter rand in beeld is geschoven), moet ie eerst een stuk naar links lopen, voordat ie stopt en de achtergrond weer naar rechts gaat.
-        #     elif (posX > 275 and posX < 800):
-        #         posX -= 4
-        #         frame_index = (frame_index + 1) % len(framesLeft)
-        #         direction = "left"
-        # ------------------------------------------
 
         if keys[pygame.K_w]:
             if posY >= 425:
                 posY -= 12
-                elevation = "up"
         if keys[pygame.K_s]:
             if posY <= 785:
                 posY += 12
-                elevation = "down"
 
         if keys[pygame.K_SPACE]:
             jump = "begin_1"
 
+
+        # ----------------------------------------------------------
+        # Maybe put the rect collision here:
+
+        alienRect = pygame.Rect(posX + 80, posY + 168, 119, 47)
+        stoneRect = pygame.Rect(stoneLoc[0] + backgroundAnchorX + 46, stoneLoc[1] + 36, 128, 87)
+
+        if alienRect.colliderect(stoneRect):
+            print("Collision detected!")
+            posX = originalCoordinates[0]
+            posY = originalCoordinates[1]
+            backgroundAnchorX = lastBackgrOffset
+
+        screen.blit(backgroundImage, (backgroundAnchorX, 0))
+
+        # ----------------------------------------------------------
         if direction == "right":
             if jump == "none":
+                # Hier vindt het blitten van de reguliere loop frames plaats:
                 screen.blit(framesRight[frame_index], (posX, posY))
-            elif jump == "begin_1":
+            if jump == "begin_1":
                 screen.blit(framesJumpRight[0], (posX, posY))
                 jump = "begin_2"
             if fired == "none" and direction == "right":
@@ -234,6 +209,7 @@ def main():
 
         elif direction == "left":
             if jump == "none":
+                # Hier vindt het blitten van de reguliere loop frames plaats:
                 screen.blit(framesLeft[frame_index], (posX, posY))
             elif jump == "begin_1":
                 screen.blit(framesJumpLeft[0], (posX, posY))
@@ -315,29 +291,15 @@ def main():
                     fired = "none"  
 
         # unnecessary for now
+        
+        # alienRect = pygame.Rect(posX + 40, posY + 80, 60, 28)
+        # stoneRect = pygame.Rect(stoneLoc[0] + backgroundAnchorX + 46, stoneLoc[1] + 36, 128, 87)
+
+        # Vòòr het beweging registreren, of na (na in dit geval dus)?
         screen.blit(treeNrOneImage, (backgroundAnchorX + 330, 100))
         screen.blit(shrubberyImage, (backgroundAnchorX + 1060, 480))
         screen.blit(stoneImage, (backgroundAnchorX + 1800, 700))
         screen.blit(treeNrTwoImage, (backgroundAnchorX + 2700, 420))
-
-        # alienRect = pygame.Rect(posX + 40, posY + 80, 60, 28)
-        # stoneRect = pygame.Rect(stoneLoc[0] + backgroundAnchorX + 46, stoneLoc[1] + 36, 128, 87)
-
-        alienRect = pygame.Rect(posX + 80, posY + 168, 119, 47)
-        stoneRect = pygame.Rect(stoneLoc[0] + backgroundAnchorX + 46, stoneLoc[1] + 36, 128, 87)
-
-        if alienRect.colliderect(stoneRect):
-            obstructed = True
-        elif not alienRect.colliderect(stoneRect):
-            obstructed = False
-        else:
-            print("something went wrong with collision detection")
-
-        if obstructed == True:
-            posX = originalCoordinates[0]
-            posY = originalCoordinates[1]
-        elif obstructed == False:
-            pass
 
         pygame.display.flip()
     
