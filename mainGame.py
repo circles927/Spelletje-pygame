@@ -1,5 +1,6 @@
 import pygame
 import json
+import math
 # import time
 
 class SpriteSheet:
@@ -65,10 +66,7 @@ def main():
     jump = "none"
     fired = "none"
     laserDirection = "none"
-    # Try to implement directly instead of with seperate variables:
-    # slowmo = False
-    # obstructed = False
-
+   
     backgroundAnchorX = 0
 
     posX = 150
@@ -160,12 +158,33 @@ def main():
 
         alienRect = pygame.Rect(posX + 80, posY + 168, 119, 47)
         stoneRect = pygame.Rect(stoneLoc[0] + backgroundAnchorX + 46, stoneLoc[1] + 36, 128, 87)
+        treeOneRect = pygame.Rect(treeOneLoc[0] + backgroundAnchorX + 160, treeOneLoc[1] + 533, 256, 63)
+        treeTwoRect = pygame.Rect(treeTwoLoc[0] + backgroundAnchorX + 132, treeTwoLoc[1] + 472, 237, 48)
+        shrubberyRect = pygame.Rect(shrubbLoc[0] + backgroundAnchorX + 58, shrubbLoc[1] + 104, 384, 159)  
 
         if alienRect.colliderect(stoneRect):
             print("Collision detected!")
             posX = originalCoordinates[0]
             posY = originalCoordinates[1]
             backgroundAnchorX = lastBackgrOffset
+        if alienRect.colliderect(treeOneRect):
+            print("Collision detected!")
+            posX = originalCoordinates[0]
+            posY = originalCoordinates[1]
+            backgroundAnchorX = lastBackgrOffset
+        if alienRect.colliderect(treeTwoRect):
+            print("Collision detected!")
+            posX = originalCoordinates[0]
+            posY = originalCoordinates[1]
+            backgroundAnchorX = lastBackgrOffset
+        if alienRect.colliderect(shrubberyRect):
+            print("Collision detected!")
+            slowPosX = math.floor((posX - originalCoordinates[0]) / 2)
+            slowPosY = math.floor((posY - originalCoordinates[1]) / 2)
+            slowBackground = math.floor((backgroundAnchorX - lastBackgrOffset) / 2)   
+            posX -= slowPosX
+            posY -= slowPosY
+            backgroundAnchorX -= slowBackground
 
         screen.blit(backgroundImage, (backgroundAnchorX, 0))
 

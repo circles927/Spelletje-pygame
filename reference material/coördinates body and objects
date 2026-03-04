@@ -36,8 +36,8 @@ hoogte shrubbery
 breedte shrubbery
 448 pixels
 
-x = 32 tot x = 431 (399 breed)
-y = 129 tot y = 207 (78 hoog)
+x = 58 tot x = 442 (384 breed)
+y = 104 tot y = 263 (159 hoog)
 
 -
 
@@ -58,5 +58,9 @@ breedte boom stam
 100 tot 355
 255 breed (stam)
 
-x = 96 tot x = 219 (123 breed)
+x = 132 tot x = 339 (207 breed)
 y = 432 tot y = 480 (48 hoog)
+
+correctie:
+132 x, 217 breed (extra ruimte gepakt, op zicht (+10)
+472 y, 48 hoog
