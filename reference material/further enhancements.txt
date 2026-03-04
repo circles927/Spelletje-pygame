@@ -1,0 +1,31 @@
+Oké nou,
+
+Ik moet nog wat meer dingen verzinnen die ik toe wil voegen aan dit spelletje.
+
+Ik wil een diepte effect op basis van...
+
+Ik wil dat de alien op de voorgrond kan komen, of op de achtergrond verdwijnt, gebaseerd op hoe diep ie zich op het speelbare vlak bevindt.
+
+Als ik omhoog druk, moet het de indruk wekken naar een diepere plek toe te gaan. En omlaag moet hem meer op de voorgrond brengen. Alsof er 3D effect is.
+
+Hetzelfde als de drie niveau's van diepte in Little Big Planet.
+
+En dan wil ik misschien nog een aanpassing doen op het schieten van de alien.
+
+Ik wil dat ie meerdere schoten kan lossen, tegelijkertijd. Dat is wel... het minste wat ik kan proberen. Want het is een beetje gek als je maar 1 schot kan lossen.
+
+En...
+
+Ik wil hem laten schieten op de muispositie. Want hij schiet nu als ik klik. Maar ik wil dat hij naar het punt van waar de muis heeft geklikt schiet. Dus omhoog of omlaag, als dat nodig is.
+
+Die dingen kosten wel wat tijd denk ik.
+
+En ik moet even nadenken over hoe ik die dingen wil implementeren.
+
+Maar binnenkort komt het weekend weer aan.
+
+Dus dan kan ik wel weer wat tijd vrijmaken.
+
+Het is nu al richting acht uur aan het gaan. Dus ja. We zullen zien.
+
+

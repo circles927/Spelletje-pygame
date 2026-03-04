@@ -157,7 +157,7 @@ def main():
         # Maybe put the rect collision here:
 
         alienRect = pygame.Rect(posX + 80, posY + 168, 119, 47)
-        stoneRect = pygame.Rect(stoneLoc[0] + backgroundAnchorX + 46, stoneLoc[1] + 36, 128, 87)
+        stoneRect = pygame.Rect(stoneLoc[0] + backgroundAnchorX + 46, stoneLoc[1] + 51, 128, 75)
         treeOneRect = pygame.Rect(treeOneLoc[0] + backgroundAnchorX + 160, treeOneLoc[1] + 533, 256, 63)
         treeTwoRect = pygame.Rect(treeTwoLoc[0] + backgroundAnchorX + 132, treeTwoLoc[1] + 472, 237, 48)
         shrubberyRect = pygame.Rect(shrubbLoc[0] + backgroundAnchorX + 58, shrubbLoc[1] + 104, 384, 159)  
@@ -264,6 +264,9 @@ def main():
             print("something went wrong tracking direction")
 
         if mouseButtons[0] == True:
+            posMouse = pygame.mouse.get_pos()
+            print(posMouse)
+
             if fired == "none" and direction == "right":
                 laserX = posX + 145
                 laserY = posY + 70
@@ -279,6 +282,8 @@ def main():
                 fired = "started"
                 laserDirection = "left"
                 laserSound.play(loops=0)
+            
+
 
         if fired != "none" and laserDirection == "right":
             if fired == "started":
